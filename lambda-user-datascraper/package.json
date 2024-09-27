@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.502.0",
+    "@sparticuz/chromium": "119.0.2",
+    "axios": "^1.6.7",
+    "puppeteer": "21.5.0",
+    "puppeteer-core": "21.5.0",
+    "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  }
+}

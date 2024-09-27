@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@400;500;600&display=swap');
+:root{
+  font-family: "Mukta Malar";
+
+}
+
+
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  letter-spacing: 1px;
+  scrollbar-width: thin;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 5px;
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5f5f5f;
+}
+

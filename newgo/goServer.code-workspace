@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "goServer",
+			"path": "../expenses/goServer"
+		},
+		{
+			"name": "newgo",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
