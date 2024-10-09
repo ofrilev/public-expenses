@@ -10,7 +10,6 @@ export const Login = () => {
     e.preventDefault();
     const usernameToLower = username.toLocaleLowerCase();
     checkCred({ data: { email: usernameToLower, password: password } });
-    console.log({ username, password });
   };
   const onRegistrationClick = () => {
     window.location.href = `${host}${port}/registration/`;

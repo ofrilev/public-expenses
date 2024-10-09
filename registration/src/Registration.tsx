@@ -17,7 +17,6 @@ export const Registration = () => {
         name: name,
       },
     });
-    console.log({ password, email });
   };
   const onLoginClick = () => {
     window.location.href = `${host}${port}/login/`;
