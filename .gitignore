@@ -1,0 +1,6 @@
+client/.env
+newgo/.env
+go-lambda/.env
+lambda-user-datascraper/.env
+login/.env
+registration/.env
