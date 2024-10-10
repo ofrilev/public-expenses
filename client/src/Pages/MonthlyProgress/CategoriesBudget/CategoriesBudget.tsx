@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { color } from "../../../../consts/colors";
 import { BudgetGrid, CategoryBudgetWidget, Title } from "./StyledComponents";
 import { CategoriesCircularProgress } from "./CategoriesCircularProgress/CategoriesCircularBar";

@@ -66,9 +66,7 @@ export const Table: FC<Props> = ({ data }: Props) => {
       const tableData =
         data[month].monthlyData?.[category].categoryMonthData?.[subCategory]
           .subCategoryMonthData;
-      debugger;
       if (tableData) {
-        debugger;
         // @ts-ignore
         generateTableBusinessProps(
           //@ts-ignore

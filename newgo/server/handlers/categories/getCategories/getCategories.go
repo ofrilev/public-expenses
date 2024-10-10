@@ -21,6 +21,7 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 	}
 	query, error := pagination.QueryParamsValidationsWithPagination(r.URL.Query(), rqp.Validations{
 		"id:int": rqp.Min(0),
+		"sort": rqp.In("id", "name", "parent"),
 		"name:string": func(value interface{}) error {
 			str := fmt.Sprint(value.(string))
 			if str == "" {

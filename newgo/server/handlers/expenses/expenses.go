@@ -6,6 +6,7 @@ import (
 	getexpenses "newgo/server/handlers/expenses/getExpenses"
 	postexpenses "newgo/server/handlers/expenses/postExpenses"
 	putexpenses "newgo/server/handlers/expenses/putExpenses"
+	putexpensesbybusinessname "newgo/server/handlers/expenses/putExpensesByBusinessName"
 )
 
 func Expenses(w http.ResponseWriter, r *http.Request) {
@@ -13,6 +14,11 @@ func Expenses(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		getexpenses.GetExpenses(w, r)
 	case "PUT":
+		if r.URL.Path == "/v1/api/expenses/by-business-name" {
+			putexpensesbybusinessname.PutExpensesByBusinessName(w, r)
+		}else{
+			putexpenses.PutExpenses(w, r)
+		}
 		putexpenses.PutExpenses(w, r)
 	case "POST":
 		postexpenses.PostExpenses(w, r)

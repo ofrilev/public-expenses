@@ -68,7 +68,7 @@ export const MonthlyProgress: FC<Props> = ({ monthlyProgress }: Props) => {
           maxMonth={monthlyProgress?.length - 1}
         />
       </UpperSection>
-      <MonthCategoriesSection className="Monthsection">
+      <MonthCategoriesSection>
         <MonthlyBudget data={monthlyBudgetData} />
         <CategoriesBudget
           categoriesBreakDown={categoriesBreakDown}

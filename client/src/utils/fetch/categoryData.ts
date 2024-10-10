@@ -12,9 +12,9 @@ interface MonthExpenses {
   expenses: FetchExpense[];
 }
 
-export const GetMonthData = async (
+export const getMonthData = async (
   categories: CategoriesObj[]
-): Promise<MonthDataBreakDown> => {
+): Promise<MonthDataBreakDown[]> => {
   const monthsName = getMonthsList(6, "MMMM").reverse();
   const monthsDate = getMonthsList(6, "yyyy/MM/01").reverse();
   let me: MonthExpenses[] = [];
@@ -45,7 +45,7 @@ const createCategoryMap = (categories: CategoriesObj[]) => {
 const buildCategoryMonthlyExpenses = (
   data: MonthExpenses[],
   categories: CategoriesObj[]
-): MonthDataBreakDown => {
+): MonthDataBreakDown[] => {
   const categoryMap = createCategoryMap(categories);
   const result: CategoryMonthlyExpenses = {};
 

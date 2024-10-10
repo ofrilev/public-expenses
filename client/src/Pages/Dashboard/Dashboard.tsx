@@ -1,5 +1,3 @@
-import { useLoading } from "../../components/loadingContext/LoadingContext";
-import LoaderGif from "../../../consts/components/LoaderGif";
 import { Widget } from "../../components/widget/Widget";
 import { CategoriesBreakDown } from "./categoriesBreakDown/categoriesBreakDownChart";
 import { BarChart } from "./monthlyChart/monthlyChart";
@@ -13,10 +11,8 @@ import {
   ThirdGridItem,
 } from "./StyledComponents";
 import { SubCategoriesBreakDown } from "./subCategoriesBreakDown/subCategoriesBreakDownChart";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { MonthlyData } from "../../models/expensesCategoryWidget/pieChart";
-import { useMonthExpensesContext } from "../../global/globalStates/MonthExpensesContext";
-import { useLoader } from "../utils/loading/useLoader";
 
 export type MonthDataBreakDown = [
   string,
@@ -57,6 +53,7 @@ export const Dashboard: FC<Props> = ({ monthlyExpenses }: Props) => {
               }}
             >
               <BarChart
+                monthlyExpenses={monthlyExpenses}
                 chosenMonth={chosenMonth}
                 changeMonth={changeMonth}
                 changeCategory={changeCategory}
@@ -67,6 +64,7 @@ export const Dashboard: FC<Props> = ({ monthlyExpenses }: Props) => {
         <SecondGridItem>
           <Widget title="Categories Breakdown" height={314} width={401}>
             <CategoriesBreakDown
+              monthlyExpenses={monthlyExpenses}
               chosenMonth={chosenMonth}
               chosenCategory={chosenCategory}
               changeCategory={changeCategory}
@@ -76,6 +74,7 @@ export const Dashboard: FC<Props> = ({ monthlyExpenses }: Props) => {
         <ThirdGridItem>
           <Widget title="Sub-Categories Breakdown" height={314} width={401}>
             <SubCategoriesBreakDown
+              monthlyExpenses={monthlyExpenses}
               chosenCategory={chosenCategory}
               chosenMonth={chosenMonth}
             />
@@ -92,7 +91,7 @@ export const Dashboard: FC<Props> = ({ monthlyExpenses }: Props) => {
                 paddingBottom: "17.84px",
               }}
             >
-              <MonthlyComparisonBarChart />
+              <MonthlyComparisonBarChart monthlyExpenses={monthlyExpenses} />
             </div>
           </Widget>
         </ForthGridItem>

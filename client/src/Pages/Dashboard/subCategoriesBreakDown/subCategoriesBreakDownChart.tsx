@@ -11,24 +11,25 @@ import {
 import { StyledDoughnut } from "../StyledComponents";
 import { MonthDataBreakDown } from "../Dashboard";
 import { color } from "../../../../consts/colors";
-import { useMonthExpensesContext } from "../../../global/globalStates/MonthExpensesContext";
 
 interface Props {
+  monthlyExpenses: MonthDataBreakDown;
   chosenMonth: number;
   chosenCategory: number;
 }
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const colors = color.ProgressColors_1;
+const colors = color.PieChartColors_1;
 color.shuffleArrayInPlace(colors);
 
 export const SubCategoriesBreakDown: FC<Props> = ({
+  monthlyExpenses,
   chosenCategory,
   chosenMonth,
 }: Props) => {
   // Define the labels and data for the doughnut chart
-  const { monthlyExpensesContext: monthlyExpenses } = useMonthExpensesContext();
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const labels: string[] = [];
@@ -37,7 +38,8 @@ export const SubCategoriesBreakDown: FC<Props> = ({
   const dd = Object.entries(monthlyExpenses[chosenMonth][1].monthlyData)[
     chosenCategory
   ][1].categoryMonthData;
-  const sbd = Object.entries(dd).map(([subCategory, breakDown]) => {
+
+  Object.entries(dd).map(([subCategory, breakDown]) => {
     labels.push(subCategory);
     datasets.push(breakDown.totalAmount);
   });
@@ -49,12 +51,6 @@ export const SubCategoriesBreakDown: FC<Props> = ({
         data: datasets, // Corresponds to the labels
         backgroundColor: colors,
         borderWidth: 0,
-        // backgroundColor: (context: any) => {
-        //   return context.dataIndex == activeIndex
-        //     ? colors[context.dataIndex]
-        //     : `${colors[context.dataIndex]}85`;
-        // },
-        // Customize colors as needed
         hoverOffset: 30,
       },
     ],
@@ -86,12 +82,12 @@ export const SubCategoriesBreakDown: FC<Props> = ({
       tooltip: {
         position: "average",
         backgroundColor: (context: any) => {
-          // `${colors[context.dataIndex]}85`
           //@ts-ignore
-          return `${colors[context.tooltipItems[0]?.dataIndex]}`;
+          // return `${colors[context.tooltipItems[0]?.dataIndex]}`;
+          return "rgba(0, 0, 0, 0.8)";
         },
         yAlign: "bottom",
-        titleColor: () => "#767676",
+        titleColor: () => "#FFFF",
         titleFont: () => ({ size: 13, weight: 400 }),
         callbacks: {
           title: (tooltipItem: any) => {

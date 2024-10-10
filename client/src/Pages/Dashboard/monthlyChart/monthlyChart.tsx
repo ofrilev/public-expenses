@@ -1,4 +1,5 @@
 import { useState, useRef, FC, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { Bar } from "react-chartjs-2";
 import {
@@ -13,6 +14,8 @@ import {
 import { StyledTooltip } from "./StyledComponents";
 import { toThousandComma, toThousandK } from "../../utils/formatter/thousand";
 import { useMonthExpensesContext } from "../../../global/globalStates/MonthExpensesContext";
+import { RootState } from "../../../global/globalStates/store/store";
+import { MonthDataBreakDown } from "../../../models/expensesCategoryWidget/pieChart";
 
 // Register the components needed for the bar chart
 ChartJS.register(
@@ -29,11 +32,13 @@ type tooltipObject = {
   data: string;
 };
 interface Props {
+  monthlyExpenses: MonthDataBreakDown[];
   changeMonth: (month: number) => void;
   changeCategory: (category: number) => void;
   chosenMonth: number;
 }
 export const BarChart: FC<Props> = ({
+  monthlyExpenses,
   changeMonth,
   changeCategory,
   chosenMonth,
@@ -47,7 +52,7 @@ export const BarChart: FC<Props> = ({
   });
   const labels: string[] = [];
   const dataSets: number[] = [];
-  const { monthlyExpensesContext: monthlyExpenses } = useMonthExpensesContext();
+
   monthlyExpenses?.map(([month, breakDown]) => {
     labels.push(month);
     dataSets.push(breakDown.totalAmount);

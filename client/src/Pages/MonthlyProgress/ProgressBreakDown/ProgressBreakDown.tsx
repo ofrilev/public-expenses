@@ -32,7 +32,6 @@ export const ProgressBreakDown: FC<Props> = ({
     if (b == false) {
       setShowToast(true);
     }
-    return setIsUpdating(b);
   };
 
   useEffect(() => {

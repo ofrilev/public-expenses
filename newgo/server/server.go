@@ -33,6 +33,7 @@ func newServer(r *mux.Router) {
 	r.HandleFunc("/v1/api/categories", categories.Categories)
 	r.HandleFunc("/v1/api/categories/{id:[0-9]*}", categories.Categories)
 	r.HandleFunc("/v1/api/expenses", expenses.Expenses)
+	r.HandleFunc("/v1/api/expenses/by-business-name", expenses.Expenses)
 	r.HandleFunc("/v1/api/expenses/{id:[0-9]*}", expenses.Expenses)
 	r.HandleFunc("/v1/api/monthly-progress", monthlyprogress.MonthlyProgress)
 	r.HandleFunc("/v1/api/monthly-progress/batch", monthlyprogress.MonthlyProgress)

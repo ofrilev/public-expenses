@@ -11,11 +11,11 @@ import {
 import { color } from "../../../../consts/colors";
 import { StyledDoughnut } from "../StyledComponents";
 import { MonthDataBreakDown } from "../Dashboard";
-import { useMonthExpensesContext } from "../../../global/globalStates/MonthExpensesContext";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 interface Props {
+  monthlyExpenses: MonthDataBreakDown;
   changeCategory: (category: number) => void;
   chosenMonth: number;
   chosenCategory: number;
@@ -25,12 +25,12 @@ export const CategoriesBreakDown: FC<Props> = ({
   changeCategory,
   chosenMonth,
   chosenCategory,
+  monthlyExpenses,
 }: Props) => {
-  const { monthlyExpensesContext: monthlyExpenses } = useMonthExpensesContext();
   const labels: string[] = [];
   const dataSet: number[] = [];
 
-  const bd = Object.entries(monthlyExpenses[chosenMonth][1].monthlyData).map(
+  Object.entries(monthlyExpenses[chosenMonth][1].monthlyData).map(
     ([category, breakDown]) => {
       labels.push(category);
       dataSet.push(breakDown.totalAmount);
@@ -43,12 +43,6 @@ export const CategoriesBreakDown: FC<Props> = ({
       {
         data: dataSet,
         backgroundColor: colors,
-        // backgroundColor: (context: any) => {
-        //   return context.dataIndex == activeIndex
-        //     ? colors[context.dataIndex]
-        //     : `${colors[context.dataIndex]}85`;
-        // },
-        // Customize colors as needed
         borderColor: (context: any) => {
           return context.dataIndex == chosenCategory
             ? "rgba(0, 0, 0, 0.35)"
@@ -61,12 +55,6 @@ export const CategoriesBreakDown: FC<Props> = ({
           return context.dataIndex === chosenCategory ? 10 : 0;
         },
         hoverOffset: 30,
-        // offsetPositive: (context: any) => {
-        //   debugger;
-        //   if (context.dataIndex === activeIndex) {
-        //     return 1;
-        //   }
-        // },
       },
     ],
   };
@@ -97,11 +85,11 @@ export const CategoriesBreakDown: FC<Props> = ({
       tooltip: {
         position: "average",
         backgroundColor: (context: any) => {
-          // `${colors[context.dataIndex]}85`
-          return `${colors[context.tooltipItems[0]?.dataIndex]}`;
+          // return `${colors[context.tooltipItems[0]?.dataIndex]}`;
+          return "rgba(0, 0, 0, 0.8)";
         },
         yAlign: "bottom",
-        titleColor: () => "#767676",
+        titleColor: () => "#FFFFFF",
         titleFont: () => ({ size: 13, weight: 400 }),
         callbacks: {
           title: (tooltipItem: any) => {

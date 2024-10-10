@@ -12,7 +12,7 @@ export const MonthlyBudget: FC<Props> = ({ data }: Props) => {
   const { spent, budget } = data;
 
   return (
-    <WidgetFrame className="widgetFrame">
+    <WidgetFrame>
       <WidgetWrapper>
         <>
           <Title>Monthly Budget {budget}</Title>

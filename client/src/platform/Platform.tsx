@@ -7,27 +7,40 @@ import {
   MonthlyProgressPage,
 } from "../Pages/Page";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { FC, Suspense, useEffect, useState } from "react"; // Import Suspense
-import { useCategoriesContext } from "../global/globalStates/CategoriesContext";
-import { GetMonthBreakDown } from "../utils/fetch/getExpensesBreakDown";
-import { GetMonthlyProgress } from "../utils/fetch/getMonthlyProgress";
-import { MonthlyProgres } from "../models/fetch/monthlyProgress";
-
-import { GetMonthData } from "../utils/fetch/categoryData";
-import { MonthDataBreakDown } from "../models/expensesCategoryWidget/pieChart";
-import { useMonthExpensesContext } from "../global/globalStates/MonthExpensesContext";
+import { FC, useState } from "react"; // Import Suspense
+import { NewEmptyBusinessModal } from "../components/NewEmptyBusinessModal/NewEmptyBusinessModal";
+import { useSelector } from "react-redux";
+import { RootState } from "../global/globalStates/store/store";
 
 export const Platform: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { unkownBusinessName } = useSelector(
+    (state: RootState) => state.data.data
+  );
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "unset";
+  };
+
   return (
     <Wrapper id="wrapper">
       <BrowserRouter basename="/app">
-        <SideBar />
-        {/* <Suspense fallback={<div>Loading Application...</div>}> */}
+        <SideBar openModal={openModal} />
+        {unkownBusinessName && (
+          <NewEmptyBusinessModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            data={unkownBusinessName}
+          />
+        )}
         <Routes>
           <Route path="/" element={<Navigate to="dashboard" />} />
           <Route path="/*" element={<AppLayout />} />
         </Routes>
-        {/* </Suspense> */}
       </BrowserRouter>
     </Wrapper>
   );
@@ -35,33 +48,10 @@ export const Platform: FC = () => {
 
 // AppLayout: Handles page-level routing
 const AppLayout: FC = () => {
-  const { categoriesContext } = useCategoriesContext();
-  const { monthlyExpensesContext, setMonthlyExpensesContext } =
-    useMonthExpensesContext();
-  const [monthlyProgress, setMonthlyProgress] = useState<MonthlyProgres[]>();
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      const monthBreakdownData = await GetMonthData(
-        categoriesContext.Categories
-      );
-      setMonthlyExpensesContext(monthBreakdownData);
-      const monthlyProgressData = await GetMonthlyProgress(
-        categoriesContext.Categories
-      );
-      setMonthlyProgress(monthlyProgressData);
-    };
-    fetchDataAsync();
-  }, []);
   return (
     <Routes>
-      <Route
-        path="dashboard"
-        element={<DashboardPage monthlyExpenses={monthlyExpensesContext} />}
-      />
-      <Route
-        path="monthly_expense"
-        element={<MonthlyProgressPage monthlyProgress={monthlyProgress} />}
-      />
+      <Route path="dashboard" element={<DashboardPage />} />
+      <Route path="monthly_expense" element={<MonthlyProgressPage />} />
       <Route path="expenses_table" element={<ExpensesTable />} />
       <Route path="*" element={<NoPage />} />
     </Routes>

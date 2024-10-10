@@ -11,11 +11,13 @@ import {
 import { CategoriesObj } from "../../models/models";
 import { addMonths, format, formatDate } from "date-fns";
 
-export const GetMonthlyProgress = async (
+export const getMonthlyProgress = async (
   categories: CategoriesObj[]
 ): Promise<MonthlyProgres[]> => {
   let mp: MonthlyProgres[] = [];
-  let currentMonth = "2024/04/01";
+
+  const thisDate = formatDate(getTodayDate(), "yyyy/MM/01");
+  let currentMonth = thisDate;
   for (let i = 0; i < 6; i++) {
     mp.push({
       categoryBreakDown: [],
@@ -25,14 +27,10 @@ export const GetMonthlyProgress = async (
     });
     currentMonth = format(addMonths(currentMonth, 1), "yyyy/MM/01");
   }
-
-  const thisDate = formatDate(getTodayDate(), "yyyy/MM/01");
   const sixMonthsFuture = formatDate(addMonths(thisDate, 6), "yyyy/MM/01");
   const res = await fetchData<FetchedMonthlyProgressObject>(
-    // `/monthly-progress?date[gte]=${thisDate}&date[lte]=${sixMonthsFuture}&limit=100`
-    `/monthly-progress?date[gte]=2024/04/01&page_size=100`
+    `/monthly-progress?date[gte]=${thisDate}&date[lte]=${sixMonthsFuture}&limit=100`
   );
-  debugger;
   const subcategories = categories.filter((c) => c.parent != null);
   const subcategoriesGlobalMap = new Map(subcategories.map((c) => [c.id, c]));
   const buildSubcategoriesBreakDown = (

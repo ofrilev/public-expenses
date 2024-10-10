@@ -1,5 +1,9 @@
 import { Item } from "./Items";
-import { ItemsWrapper, SideBarWrapper } from "./StyledComponent";
+import {
+  ItemsWrapper,
+  SideBarWrapper,
+  StyledLogoWrapper,
+} from "./StyledComponent";
 import { AnimatedLogo } from "../../../consts/components/AnimatedLogo/AnimatedLogo";
 import LogoutIcon from "./logos/logoutIcon";
 import GraphIcon from "./logos/GraphIcon";
@@ -7,6 +11,7 @@ import CalendarIcon from "./logos/CalendarIcon";
 import HomeIcon from "./logos/HomeIcon";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
+import UnkownBusinessCategories from "./UnkownBusinessCategories";
 
 export enum PagesIds {
   Dashboard = 1,
@@ -14,11 +19,17 @@ export enum PagesIds {
   ExpensesTable = 3,
   Logout = 4,
 }
-export const SideBar = () => {
+type Props = {
+  openModal: () => void;
+};
+export const SideBar = (props: Props) => {
   const [chosenItem, setChosenItem] = useState<PagesIds>(PagesIds.Dashboard);
   return (
     <SideBarWrapper>
-      <AnimatedLogo />
+      <StyledLogoWrapper>
+        <AnimatedLogo />
+        <UnkownBusinessCategories openModal={props.openModal} />
+      </StyledLogoWrapper>
       <ItemsWrapper>
         <Outlet />
         {Item(

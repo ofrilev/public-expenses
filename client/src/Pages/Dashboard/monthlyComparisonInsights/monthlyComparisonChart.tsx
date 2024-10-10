@@ -13,7 +13,6 @@ import {
 import { toThousandComma, toThousandK } from "../../utils/formatter/thousand";
 import { MonthDataBreakDown } from "../Dashboard";
 import { color } from "../../../../consts/colors";
-import { useMonthExpensesContext } from "../../../global/globalStates/MonthExpensesContext";
 import { getComparison, getLabelsAndDataSets } from "./monthComparisonUtils";
 
 // Register the components needed for the bar chart
@@ -30,11 +29,14 @@ export type monthsComparison = {
   monthName: string;
   data: { [category: string]: number };
 };
-
-export const MonthlyComparisonBarChart: FC = () => {
-  const { monthlyExpensesContext: monthlyExpenses } = useMonthExpensesContext();
+interface Props {
+  monthlyExpenses: MonthDataBreakDown;
+}
+export const MonthlyComparisonBarChart: FC<Props> = ({
+  monthlyExpenses,
+}: Props) => {
   const chartRef = useRef<any>(null);
-  const colors = color.PieChartColors_1.reverse();
+  const colors = color.ProgressColors_1;
   const [monthsComparison, setMonthsComparison] = useState<monthsComparison[]>(
     getComparison(monthlyExpenses, 2)
   );

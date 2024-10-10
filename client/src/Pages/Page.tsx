@@ -1,4 +1,4 @@
-import { FC, lazy } from "react";
+import { FC, useEffect, useState } from "react";
 import { PageWrapper } from "./StyledComponents";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { MonthlyProgressLoaderComponent } from "./MonthlyProgress/CategoriesBudget/LoaderComponent";
@@ -6,18 +6,38 @@ import { DashboardLoaderComponent } from "./Dashboard/LoaderComponent";
 import { MonthlyProgres } from "../models/fetch/monthlyProgress";
 import { MonthlyProgress } from "./MonthlyProgress/MonthlyProgress";
 import { MonthDataBreakDown } from "../models/expensesCategoryWidget/pieChart";
+import {
+  fetchMonthlyData,
+  fetchMonthlyProgress,
+  RootState,
+} from "../global/globalStates/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useCategoriesContext } from "../global/globalStates/CategoriesContext";
+export const DashboardPage: FC = () => {
+  const { categoriesContext } = useCategoriesContext();
+  const loading = useSelector((state: RootState) => state?.data?.loading);
+  const monthlyExpenses = useSelector(
+    (state: RootState) => state?.data?.data?.monthlyExpenses
+  );
+  const dispatch = useDispatch();
+  const [monthlyExpensesData, setMonthlyExpensesData] = useState<
+    MonthDataBreakDown[]
+  >(monthlyExpenses ?? []);
+  useEffect(() => {
+    if (!monthlyExpenses) {
+      dispatch(fetchMonthlyData(categoriesContext.Categories));
+    }
+  }, [dispatch, monthlyExpenses]);
 
-// DashboardPage Component with Suspense
-interface IDashboardPage {
-  monthlyExpenses: MonthDataBreakDown[] | undefined;
-}
-export const DashboardPage: FC<IDashboardPage> = ({
-  monthlyExpenses,
-}: IDashboardPage) => {
+  useEffect(() => {
+    if (monthlyExpenses && monthlyExpenses.length > 0) {
+      setMonthlyExpensesData(monthlyExpenses);
+    }
+  }, [loading, monthlyExpenses]);
   return (
     <PageWrapper>
-      {monthlyExpenses?.length ? (
-        <Dashboard monthlyExpenses={monthlyExpenses} />
+      {monthlyExpensesData?.length && !loading ? (
+        <Dashboard monthlyExpenses={monthlyExpensesData} />
       ) : (
         <DashboardLoaderComponent />
       )}
@@ -25,29 +45,35 @@ export const DashboardPage: FC<IDashboardPage> = ({
   );
 };
 
-// MonthlyProgressPage Component with Suspense
-interface IMonthlyProgressPage {
-  monthlyProgress: MonthlyProgres[] | undefined;
-}
-export const MonthlyProgressPage: FC<IMonthlyProgressPage> = ({
-  monthlyProgress,
-}: IMonthlyProgressPage) => {
-  // If data is still loading, use Suspense to show a fallback
+export const MonthlyProgressPage: FC = () => {
+  const { categoriesContext } = useCategoriesContext();
+  const dispatch = useDispatch();
+  const { monthlyProgress } = useSelector(
+    (state: RootState) => state.data.data
+  );
+  const { loading } = useSelector((state: RootState) => state.data);
+  const [monthlyProgressData, setMonthlyProgressData] = useState<
+    MonthlyProgres[]
+  >(monthlyProgress ?? []);
 
-  // const MonthlyProgress = React.lazy(() =>
-  //   import("./MonthlyProgress/MonthlyProgress").then((m) => ({
-  //     default: m.MonthlyProgress,
-  //   }))
-  // );
+  useEffect(() => {
+    if (!monthlyProgress) {
+      dispatch(fetchMonthlyProgress(categoriesContext.Categories));
+    }
+  }, [dispatch, monthlyProgress]);
+
+  useEffect(() => {
+    if (monthlyProgress && monthlyProgress.length > 0) {
+      setMonthlyProgressData(monthlyProgress);
+    }
+  }, [loading, monthlyProgress]);
   return (
     <PageWrapper>
-      {/* <Suspense fallback={<MonthlyProgressLoaderComponent />}> */}
-      {monthlyProgress ? (
-        <MonthlyProgress monthlyProgress={monthlyProgress} />
+      {monthlyProgressData?.length && !loading ? (
+        <MonthlyProgress monthlyProgress={monthlyProgressData} />
       ) : (
         <MonthlyProgressLoaderComponent />
       )}
-      {/* </Suspense> */}
     </PageWrapper>
   );
 };
@@ -61,8 +87,3 @@ export const ExpensesTable: FC = () => {
 export const NoPage: FC = () => {
   return <h1>404 Sorry mate...</h1>;
 };
-function Lazy(
-  arg0: () => Promise<typeof import("./MonthlyProgress/MonthlyProgress")>
-) {
-  throw new Error("Function not implemented.");
-}
