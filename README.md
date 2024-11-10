@@ -4,6 +4,9 @@ A powerful solution for managing and tracking your expenses over time.
 ## Overview  
 The **Expenses** app is a multi-service platform that helps users seamlessly manage, view, and analyze their expenses. It provides a full-stack system with backend services, web scraping, and a user-friendly single-page application (SPA) for managing finances.
 
+
+
+
 ## Services
 
 ### 1. **Server**  
@@ -26,3 +29,13 @@ The **Expenses** app is a multi-service platform that helps users seamlessly man
 
 ## Upcoming Features
 - **Registration, Login & Quiz Services**: In-progress development of services for user onboarding, authentication, and a personalized quiz to enhance the user experience.
+
+Auth page
+![of7im](https://github.com/user-attachments/assets/c1a7aafa-92d4-46dd-98c6-37f203e3ad00)
+Main dashboard
+![Screenshot 2024-11-10 at 13 04 18](https://github.com/user-attachments/assets/7cd23448-fcb2-46d8-a2d2-768efe475779)
+Monthly progress
+![Screenshot 2024-11-10 at 13 16 15](https://github.com/user-attachments/assets/f535892c-2706-4b11-b2c1-c77c2bf4b5ed)
+Unknown business modal
+![Screenshot 2024-11-10 at 12 32 01](https://github.com/user-attachments/assets/76a06b85-0bde-44d6-9018-ec2d45e22155)
+
