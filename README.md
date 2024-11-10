@@ -31,7 +31,7 @@ The **Expenses** app is a multi-service platform that helps users seamlessly man
 - **Registration, Login & Quiz Services**: In-progress development of services for user onboarding, authentication, and a personalized quiz to enhance the user experience.
 
 Auth page
-![of7im](https://github.com/user-attachments/assets/c1a7aafa-92d4-46dd-98c6-37f203e3ad00)
+![Screenshot 2024-11-10 at 12 31 27](https://github.com/user-attachments/assets/0e274764-6366-4905-8c7c-ce0451ba2134)
 Main dashboard
 ![Screenshot 2024-11-10 at 13 04 18](https://github.com/user-attachments/assets/7cd23448-fcb2-46d8-a2d2-768efe475779)
 Monthly progress
