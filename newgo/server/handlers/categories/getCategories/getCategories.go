@@ -59,7 +59,7 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 	query.AddFilter("user_id", rqp.EQ, user_id)
 	var categories []dbModels.Category
 	var resObj = map[string]interface{}{
-		"Pagination": pagination.GetPaginationObj(gormdbmodule.DB, page, pageSize, dbModels.TableNames.CategoriesTable, query),
+		"pagination": pagination.GetPaginationObj(gormdbmodule.DB, page, pageSize, dbModels.TableNames.CategoriesTable, query),
 		"Categories": []map[string]interface{}{},
 	}
 	//run query  with pagination
@@ -84,6 +84,7 @@ func GetCategories(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "max-age=86400")
 	if err := json.NewEncoder(w).Encode(resObj); err != nil {
 		http.Error(w, "Failed to encode results", http.StatusInternalServerError)
 	}

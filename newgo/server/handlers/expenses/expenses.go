@@ -14,7 +14,7 @@ func Expenses(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		getexpenses.GetExpenses(w, r)
 	case "PUT":
-		if r.URL.Path == "/v1/api/expenses/by-business-name" {
+		if r.URL.Path == "/expenses/by-business-name" {
 			putexpensesbybusinessname.PutExpensesByBusinessName(w, r)
 		}else{
 			putexpenses.PutExpenses(w, r)
