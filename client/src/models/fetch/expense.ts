@@ -1,7 +1,5 @@
-import { Pagination } from "./pagination";
 
 export type Expenses = {
-  pagination: Pagination;
   expenses: Expense[];
 };
 export type Expense = {

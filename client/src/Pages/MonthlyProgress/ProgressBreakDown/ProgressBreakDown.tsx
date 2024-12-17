@@ -9,10 +9,7 @@ import {
 } from "./StyledComponents";
 import { SubcategoriesProgressRegular } from "./SubcategoriesProgress/SubcategoryProgress";
 import { SubcategoriesBreakDown } from "../../../models/fetch/monthlyProgress";
-import { UpdateChangesButton } from "./UpdateChangeButton";
-import { Toast } from "../../../components/toastBar/ToastBar";
-import { ToastBarComponent } from "./SubcategoriesProgress/ToastBarComponent";
-interface Props {
+import { UpdateChangesButton } from "./UpdateChangeButton";interface Props {
   currentMonth: string;
   subCategoriesBreakDown: SubcategoriesBreakDown[];
 }
@@ -22,17 +19,12 @@ export const ProgressBreakDown: FC<Props> = ({
 }: Props) => {
   const [editMode, setEditMode] = useState(false);
   const [isChange, setIsChange] = useState(false);
-  const [isUpdateing, setIsUpdating] = useState(false);
-  const [showToast, setShowToast] = useState(false);
+  const [isUpdateing] = useState(false);
+
   const firstState = subCategoriesBreakDown;
   const [currentState, setCurrentState] = useState<SubcategoriesBreakDown[]>(
     subCategoriesBreakDown
   );
-  const changeUpdating = (b: boolean) => {
-    if (b == false) {
-      setShowToast(true);
-    }
-  };
 
   useEffect(() => {
     setCurrentState(subCategoriesBreakDown);
@@ -75,7 +67,6 @@ export const ProgressBreakDown: FC<Props> = ({
         <CategoryTitle>Category</CategoryTitle>
         <ButtonsWrapper>
           <UpdateChangesButton
-            changeUpdating={changeUpdating}
             isUpdating={isUpdateing}
             currentMonth={currentMonth}
             isChange={isChange}
@@ -89,12 +80,6 @@ export const ProgressBreakDown: FC<Props> = ({
         changeCurrentState={changeCurrentState}
         isEditMode={editMode}
         subCategoriesBreakDown={currentState}
-      />
-      <Toast
-        show={showToast}
-        duration={4000}
-        onClose={() => setShowToast(false)}
-        renderCustomComponent={() => <ToastBarComponent />}
       />
     </>
   );

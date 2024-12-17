@@ -10,22 +10,23 @@ interface LeftArrowProps extends React.SVGProps<SVGSVGElement> {
 }
 
 const StyledSVG = styled.svg<LeftArrowProps>`
-  cursor: pointer;
   width: ${({ width }) => width || "25px"};
   height: ${({ height }) => height || "30px"};
   display: ${({ disabled }) => (disabled ? "none" : "block")};
+  pointer-events: none;
   path {
+    pointer-events: all;
     fill: ${({ color }) => color || "#B0BAC8"};
-  }
-  &:hover path {
-    fill: ${({ hoverColor }) =>
-      hoverColor || "#4A90E2"}; // Change fill color on hover
+    &:hover {
+      cursor: pointer;
+      fill: ${({ hoverColor }) =>
+        hoverColor || "#4A90E2"}; // Change fill color on hover
+    }
   }
 `;
 
 const LeftArrowIcon: React.FC<LeftArrowProps> = (props) => {
   return (
-    //@ts-ignore
     <StyledSVG
       viewBox="0 0 24 24" // Updated viewBox
       xmlns="http://www.w3.org/2000/svg"

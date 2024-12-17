@@ -1,7 +1,4 @@
 import styled from "styled-components";
-
-
-import React from "react";
 import { TeddyBear } from "./TeddyBear";
 import { StyledCircle } from "./StyledCricle";
 

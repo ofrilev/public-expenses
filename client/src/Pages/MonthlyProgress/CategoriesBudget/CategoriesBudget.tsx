@@ -37,12 +37,12 @@ export const CategoriesBudget: FC<Props> = ({
 const BudgetCategoryBar = (
   index: number,
   handleSelect: (index: number) => void,
-  isSelected: boolean,
+  is_selected: boolean,
   data: CategoriesBreakDown
 ) => {
   return (
     <CategoryBudgetWidget
-      selected={isSelected}
+      selected={is_selected}
       className="grid-item"
       onClick={() => handleSelect(index)}
     >

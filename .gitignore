@@ -4,3 +4,5 @@ go-lambda/.env
 lambda-user-datascraper/.env
 login/.env
 registration/.env
+*/**/node_modules
+*/**/bun.lockb

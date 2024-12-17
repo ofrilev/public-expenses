@@ -7,7 +7,7 @@ import {
 } from "../../../utils/fetch/getUnkownBusinessName";
 import { getMonthlyProgress } from "../../../utils/fetch/getMonthlyProgress";
 import { CategoriesObj } from "../../../models/models";
-import { getMonthData } from "../../../utils/fetch/categoryData";
+import { getMonthData } from "../../../utils/fetch/getMonthData";
 import { MonthDataBreakDown } from "../../../models/expensesCategoryWidget/pieChart";
 import { MonthlyProgres } from "../../../models/fetch/monthlyProgress";
 
@@ -15,7 +15,7 @@ import { MonthlyProgres } from "../../../models/fetch/monthlyProgress";
 const FETCH_DATA_REQUEST = "FETCH_DATA_REQUEST";
 const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
-
+const UPDATE_DATA = "UPDATE_DATA";
 // Action Creators
 const fetchDataRequest = () => ({
   type: FETCH_DATA_REQUEST,
@@ -25,6 +25,10 @@ const fetchDataSuccess = (data: Partial<DataState["data"]>) => ({
   type: FETCH_DATA_SUCCESS,
   payload: data,
 });
+export const updateData = (data:Partial<DataState["data"]>) => ({
+  type: UPDATE_DATA,
+  payload: data,
+})
 
 const fetchDataFailure = (error: string) => ({
   type: FETCH_DATA_FAILURE,
@@ -44,11 +48,11 @@ export const fetchUnkownBusinessName = () => {
   };
 };
 
-export const fetchMonthlyProgress = (categories: CategoriesObj[]) => {
+export const fetchMonthlyProgress = (categories: CategoriesObj[], cache?: boolean) => {
   return async (dispatch: Dispatch<any>) => {
     dispatch(fetchDataRequest());
     try {
-      const data = await getMonthlyProgress(categories);
+      const data = await getMonthlyProgress(categories, cache);
       dispatch(fetchDataSuccess({ monthlyProgress: data }));
     } catch (error: any) {
       dispatch(fetchDataFailure(error.message));
@@ -67,6 +71,7 @@ export const fetchMonthlyData = (categories: CategoriesObj[]) => {
     }
   };
 };
+
 
 // Initial State
 interface DataState {
@@ -107,6 +112,26 @@ const dataReducer = (state = initialState, action: any): DataState => {
         loading: false,
         error: action.payload,
       };
+      case UPDATE_DATA:
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            ...Object.keys(action.payload).reduce((acc:any, key) => {
+              const currentValue = state.data[key as keyof DataState["data"]];
+              const newValue = action.payload[key];
+  
+              if (Array.isArray(currentValue) && Array.isArray(newValue)) {
+                acc[key] = [...currentValue, ...newValue];
+              } else if (typeof currentValue === "object" && typeof newValue === "object") {
+                acc[key] = { ...currentValue, ...newValue };
+              } else {
+                acc[key] = newValue;
+              }
+              return acc;
+            }, {} as Partial<DataState["data"]>),
+          },
+        };
     default:
       return state;
   }

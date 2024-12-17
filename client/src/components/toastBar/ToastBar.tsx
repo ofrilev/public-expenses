@@ -19,13 +19,13 @@ const ToastWrapper = styled.div<{ show: boolean }>`
 interface Props {
   show: boolean;
   duration: number;
-  onClose: () => void;
+  onClose?: () => void;
   renderCustomComponent: () => JSX.Element;
 }
 export const Toast: FC<Props> = ({
   show,
   duration,
-  onClose,
+  onClose = () => {},
   renderCustomComponent,
 }: Props) => {
   useEffect(() => {
@@ -37,3 +37,6 @@ export const Toast: FC<Props> = ({
 
   return <ToastWrapper show={show}>{renderCustomComponent()}</ToastWrapper>;
 };
+export const showToast = () => {
+  
+}

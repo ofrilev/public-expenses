@@ -1,10 +1,6 @@
 import { styled } from "styled-components";
 
-export const PageWrapper = styled.div`
-  width: 985px;
-  display: flex;
-  flex-direction: column;
-`;
+
 export const UpperSection = styled.div`
   display: flex;
   width: inherit;

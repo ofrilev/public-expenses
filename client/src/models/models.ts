@@ -1,5 +1,3 @@
-import { Pagination } from "./fetch/pagination";
-
 export interface Todo {
   id: number;
   todo: string;
@@ -19,10 +17,6 @@ export interface BusinessExpense {
   breakDown: ExpenseDetail[];
 }
 
-export type CategoriesObjArr = {
-  Pagination: Pagination;
-  Categories: CategoriesObj[];
-};
 export type CategoriesObj = {
   category: string;
   id: number;

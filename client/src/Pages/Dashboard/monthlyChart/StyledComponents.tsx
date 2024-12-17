@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const StyledTooltip = styled.div<{ x: number; y: number }>`
+export const StyledTooltip = styled.div<{ x: number; y: number, visible: boolean }>`
+  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
   position: absolute;
   background: #fff0e9;
   min-width: 26px;

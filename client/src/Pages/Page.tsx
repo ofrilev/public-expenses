@@ -1,11 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, useEffect, useState } from "react";
 import { PageWrapper } from "./StyledComponents";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { MonthlyProgressLoaderComponent } from "./MonthlyProgress/CategoriesBudget/LoaderComponent";
 import { DashboardLoaderComponent } from "./Dashboard/LoaderComponent";
-import { MonthlyProgres } from "../models/fetch/monthlyProgress";
 import { MonthlyProgress } from "./MonthlyProgress/MonthlyProgress";
-import { MonthDataBreakDown } from "../models/expensesCategoryWidget/pieChart";
 import {
   fetchMonthlyData,
   fetchMonthlyProgress,
@@ -13,27 +11,20 @@ import {
 } from "../global/globalStates/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useCategoriesContext } from "../global/globalStates/CategoriesContext";
+import { CategoriesObj } from "../models/models";
+import { Toast } from "../components/toastBar/ToastBar";
+import { ToastBarComponent } from "./MonthlyProgress/ProgressBreakDown/SubcategoriesProgress/ToastBarComponent";
+
 export const DashboardPage: FC = () => {
   const { categoriesContext } = useCategoriesContext();
   const loading = useSelector((state: RootState) => state?.data?.loading);
-  const monthlyExpenses = useSelector(
+  const monthlyExpensesData = useSelector(
     (state: RootState) => state?.data?.data?.monthlyExpenses
   );
   const dispatch = useDispatch();
-  const [monthlyExpensesData, setMonthlyExpensesData] = useState<
-    MonthDataBreakDown[]
-  >(monthlyExpenses ?? []);
   useEffect(() => {
-    if (!monthlyExpenses) {
-      dispatch(fetchMonthlyData(categoriesContext.Categories));
-    }
-  }, [dispatch, monthlyExpenses]);
-
-  useEffect(() => {
-    if (monthlyExpenses && monthlyExpenses.length > 0) {
-      setMonthlyExpensesData(monthlyExpenses);
-    }
-  }, [loading, monthlyExpenses]);
+    dispatch(fetchMonthlyData(categoriesContext));
+  }, [dispatch]);
   return (
     <PageWrapper>
       {monthlyExpensesData?.length && !loading ? (
@@ -48,34 +39,46 @@ export const DashboardPage: FC = () => {
 export const MonthlyProgressPage: FC = () => {
   const { categoriesContext } = useCategoriesContext();
   const dispatch = useDispatch();
-  const { monthlyProgress } = useSelector(
+  const { monthlyProgress: monthlyProgressData } = useSelector(
     (state: RootState) => state.data.data
   );
   const { loading } = useSelector((state: RootState) => state.data);
-  const [monthlyProgressData, setMonthlyProgressData] = useState<
-    MonthlyProgres[]
-  >(monthlyProgress ?? []);
-
+  const [showToast, setShowToast] = useState(false);
   useEffect(() => {
-    if (!monthlyProgress) {
-      dispatch(fetchMonthlyProgress(categoriesContext.Categories));
-    }
-  }, [dispatch, monthlyProgress]);
-
-  useEffect(() => {
-    if (monthlyProgress && monthlyProgress.length > 0) {
-      setMonthlyProgressData(monthlyProgress);
-    }
-  }, [loading, monthlyProgress]);
+    dispatch(fetchMonthlyProgress(categoriesContext));
+  }, [dispatch]);
+  document.addEventListener("show-monthly-progress-toast-bar", (event) => {
+    console.log(event);
+    setShowToast(true);
+  });
   return (
     <PageWrapper>
       {monthlyProgressData?.length && !loading ? (
-        <MonthlyProgress monthlyProgress={monthlyProgressData} />
+        <>
+          <MonthlyProgress monthlyProgress={monthlyProgressData} />
+          <Toast
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            duration={4000}
+            renderCustomComponent={() => <ToastBarComponent />}
+          />
+        </>
       ) : (
         <MonthlyProgressLoaderComponent />
       )}
     </PageWrapper>
   );
+};
+export const updateMonthlyProgress = async (
+  promises: any[],
+  dispatch: Dispatch<any>,
+  categoriesContext: CategoriesObj[]
+) => {
+  const ids = await Promise.all(promises);
+  if (ids.length > 0) {
+    dispatch(fetchMonthlyProgress(categoriesContext, false));
+    document.dispatchEvent(new CustomEvent("show-monthly-progress-toast-bar"));
+  }
 };
 
 // ExpensesTable Component

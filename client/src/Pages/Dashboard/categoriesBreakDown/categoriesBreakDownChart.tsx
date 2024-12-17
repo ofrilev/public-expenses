@@ -84,7 +84,7 @@ export const CategoriesBreakDown: FC<Props> = ({
       },
       tooltip: {
         position: "average",
-        backgroundColor: (context: any) => {
+        backgroundColor: (_context: any) => {
           // return `${colors[context.tooltipItems[0]?.dataIndex]}`;
           return "rgba(0, 0, 0, 0.8)";
         },
@@ -99,7 +99,7 @@ export const CategoriesBreakDown: FC<Props> = ({
         },
       },
     },
-    onClick(event, elements, chart) {
+    onClick(_event, elements, _chart) {
       if (elements.length > 0) {
         changeCategory(elements[0]?.index);
       }
@@ -113,63 +113,63 @@ export const CategoriesBreakDown: FC<Props> = ({
     },
     cutout: "55%",
   };
-  const shadowPlugin = {
-    id: "shadowPlugin",
-    afterDraw: (chart: {
-      ctx: any;
-      data: { datasets: any[] };
-      getDatasetMeta: (arg0: any) => any;
-    }) => {
-      const ctx = chart.ctx;
-      chart.data.datasets.forEach((dataset, i) => {
-        if (i == chosenCategory) {
-          const meta = chart.getDatasetMeta(i);
-          meta.data.forEach(
-            (
-              element: {
-                x: any;
-                y: any;
-                outerRadius: any;
-                startAngle: any;
-                endAngle: any;
-                innerRadius: any;
-              },
-              index: string | number
-            ) => {
-              ctx.save();
-              ctx.shadowColor = "rgba(0, 0, 0, 0.5)"; // Set shadow color
-              ctx.shadowBlur = 10; // Set shadow blur
-              ctx.shadowOffsetX = 5; // Horizontal shadow offset
-              ctx.shadowOffsetY = 5; // Vertical shadow offset
+  // const shadowPlugin = {
+  //   id: "shadowPlugin",
+  //   afterDraw: (chart: {
+  //     ctx: any;
+  //     data: { datasets: any[] };
+  //     getDatasetMeta: (arg0: any) => any;
+  //   }) => {
+  //     const ctx = chart.ctx;
+  //     chart.data.datasets.forEach((dataset, i) => {
+  //       if (i == chosenCategory) {
+  //         const meta = chart.getDatasetMeta(i);
+  //         meta.data.forEach(
+  //           (
+  //             element: {
+  //               x: any;
+  //               y: any;
+  //               outerRadius: any;
+  //               startAngle: any;
+  //               endAngle: any;
+  //               innerRadius: any;
+  //             },
+  //             index: string | number
+  //           ) => {
+  //             ctx.save();
+  //             ctx.shadowColor = "rgba(0, 0, 0, 0.5)"; // Set shadow color
+  //             ctx.shadowBlur = 10; // Set shadow blur
+  //             ctx.shadowOffsetX = 5; // Horizontal shadow offset
+  //             ctx.shadowOffsetY = 5; // Vertical shadow offset
 
-              // Draw the slice with shadow
-              ctx.beginPath();
-              ctx.arc(
-                element.x,
-                element.y,
-                element.outerRadius,
-                element.startAngle,
-                element.endAngle
-              );
-              ctx.arc(
-                element.x,
-                element.y,
-                element.innerRadius,
-                element.endAngle,
-                element.startAngle,
-                true
-              );
-              ctx.closePath();
-              ctx.fillStyle = dataset.backgroundColor[index];
-              ctx.fill();
+  //             // Draw the slice with shadow
+  //             ctx.beginPath();
+  //             ctx.arc(
+  //               element.x,
+  //               element.y,
+  //               element.outerRadius,
+  //               element.startAngle,
+  //               element.endAngle
+  //             );
+  //             ctx.arc(
+  //               element.x,
+  //               element.y,
+  //               element.innerRadius,
+  //               element.endAngle,
+  //               element.startAngle,
+  //               true
+  //             );
+  //             ctx.closePath();
+  //             ctx.fillStyle = dataset.backgroundColor[index];
+  //             ctx.fill();
 
-              ctx.restore();
-            }
-          );
-        }
-      });
-    },
-  };
+  //             ctx.restore();
+  //           }
+  //         );
+  //       }
+  //     });
+  //   },
+  // };
 
   // Register the plugin with Chart.js
   //   ChartJS.register(shadowPlugin);
@@ -193,7 +193,9 @@ export const CategoriesBreakDown: FC<Props> = ({
         ))}
       </LegendContainer>
       <DoughnutContainer>
-        <Doughnut data={data} options={options} />
+        <Doughnut
+        //@ts-ignore
+        data={data} options={options} />
       </DoughnutContainer>
     </ChartContainer>
   );

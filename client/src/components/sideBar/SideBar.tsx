@@ -22,8 +22,23 @@ export enum PagesIds {
 type Props = {
   openModal: () => void;
 };
+// Extract subdomain from window.location.hostname
+const subdomain = window.location.pathname.split("/")[2]; // e.g. "subdomain" in "subdomain.example.com"
+
+// Logic to choose routes based on the subdomain
+const getSubdomainRoute = () => {
+  if (subdomain === "dashboard") {
+    return PagesIds.Dashboard;
+  } else if (subdomain === "expenses_table") {
+    return PagesIds.ExpensesTable;
+  } else if (subdomain === "monthly_expense") {
+    return PagesIds.MonthlyExpense;
+  } else {
+    return PagesIds.Dashboard;
+  }
+};
 export const SideBar = (props: Props) => {
-  const [chosenItem, setChosenItem] = useState<PagesIds>(PagesIds.Dashboard);
+  const [chosenItem, setChosenItem] = useState<PagesIds>(getSubdomainRoute());
   return (
     <SideBarWrapper>
       <StyledLogoWrapper>

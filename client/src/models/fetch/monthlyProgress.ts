@@ -1,5 +1,3 @@
-import { Pagination } from "./pagination";
-
 export type MonthlyProgres = {
   month: string;
   goal_amount: number;
@@ -29,8 +27,4 @@ export type ProgressBreakDown = {
 
 export type FetchedMonthlyProgress = {
   [date: string]: ProgressBreakDown[];
-};
-export type FetchedMonthlyProgressObject = {
-  monthly_progress: FetchedMonthlyProgress;
-  pagination: Pagination;
 };

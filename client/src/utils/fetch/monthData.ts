@@ -1,6 +1,6 @@
-import { getMonthsList, getTodayDate } from "../../global/date/dateToday";
-import { fetchData } from "../useFetch";
-import { Expenses, Expense } from "../../models/fetch/expense";
+import { getMonthsList} from "../../global/date/dateToday";
+import { FetchRequest } from "../useFetch";
+import { Expense } from "../../models/fetch/expense";
 export interface MonthData {
   month: string;
   amount: number;
@@ -18,11 +18,13 @@ export const GetMonthData = async (): Promise<MonthData[]> => {
   return monthData;
 };
 const getMonthSum = async (md: string): Promise<number> => {
-  const res = await fetchData<Expenses>(`expenses?date[gte]=${md}`);
+  let fetchedData: Expense[] = [] 
+  const request = new FetchRequest<Expense[]>(`expenses?date[gte]=${md}`, fetchedData)
+  await request.fetchData()
   let sum = 0;
-  if (res.expenses && res.expenses.length > 0) {
-    sum = res.expenses.reduce((acc, item) => acc + (item.amount || 0), 0);
+  if (request.response.status != 1 && request.response.data.length > 0) {
+    let data = request.response.data
+    sum = data.reduce((acc, item) => acc + (item.amount || 0), 0);
   }
-
   return sum;
 };

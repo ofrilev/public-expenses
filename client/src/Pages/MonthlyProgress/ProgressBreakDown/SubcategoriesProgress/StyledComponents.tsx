@@ -20,7 +20,6 @@ export const SubcategoriesFrame = styled.div<{
       ? "1px solid #e0e0e0;"
       : "1px solid transperent"};
   cursor: ${({ isEditMode }) => (isEditMode ? "pointer" : "default")};
-  /* padding: 20px 10px 5px 10px; */
   border-radius: 20px;
   height: 120px;
   width: 270px;
@@ -77,8 +76,7 @@ export const StyledInput = styled.input<{
   border-radius: 100px;
   margin-bottom: 10px;
   margin-top: 10px;
-  color: ${(props) =>
-    props.isValueChange && !props.isFocused ? "red" : "black"};
+  box-shadow: ${(props) => (props.isValueChange ? "0 0 10px red;" : "none")};
   & :focus {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);

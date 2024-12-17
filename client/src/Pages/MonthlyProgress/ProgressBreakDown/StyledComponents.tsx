@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { color } from "../../../../consts/colors";
 
 export const ProgressUpperSection = styled.div`
   display: flex;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
 import circle from "./circ2.gif";
-import React from "react";
 const rotate = keyframes`
   to {
     transform: rotate(360deg);

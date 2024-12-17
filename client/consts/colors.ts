@@ -62,6 +62,9 @@ export class Colors {
     500: "#70AF5F",
     600: "#4FBF40",
   };
+  orange = {
+    100: "#FAA980",
+  };
 
   PieChartColors_1 = [
     "#F62B2B",

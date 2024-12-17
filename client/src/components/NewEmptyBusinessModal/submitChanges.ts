@@ -2,15 +2,17 @@ import { putReq } from "../../utils/useFetch";
 import { triggerFetchUnknownBusinessName } from "../sideBar/UnkownBusinessCategories";
 import { ChangedBusiness } from "./NewEmptyBusinessModal";
 
-export const submitChanges = async (changeBusiness: ChangedBusiness) => {
-  let data = Object.entries(changeBusiness).map(([key, value]) => {
-    return {
-      business_name: key,
-      category: value.newCategoryId,
-    };
-  });
-  const res = await putReq("expenses/by-business-name", data);
-  if (res.status) {
+export const submitChanges = async (changeBusiness: ChangedBusiness, resetChangedBusiness: () => void) => {
+  const data = Object.entries(changeBusiness).map(([key, { newCategoryId }]) => ({
+    business_name: key,
+    category: newCategoryId,
+  }));
+  try {
+    await putReq("expenses/by-business-name", data);
+    resetChangedBusiness();
+    triggerFetchUnknownBusinessName();
+  } catch {
+    resetChangedBusiness();
     triggerFetchUnknownBusinessName();
   }
 };

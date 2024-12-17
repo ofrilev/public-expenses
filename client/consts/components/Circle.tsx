@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 // Styled component for the SVG wrapper

@@ -14,7 +14,6 @@ import {
   StyledButton,
   StyledTitle,
   StyledTitleWrapper,
-  SubCategoriesWrapper,
   SubcategoryGrid,
   SubcategoryItem,
   SubmitButton,
@@ -90,6 +89,11 @@ export const NewEmptyBusinessModal: FC<ModalProps> = ({
       ? setSubcategories(categories[chosenCategory].children)
       : setSubcategories([]);
   }, [chosenCategory]);
+
+  const resetChangedBusiness = () => {
+    setChangedBusiness({});
+    setChosenCategory(-1);
+  };
 
   if (!isOpen) return null;
   return createPortal(
@@ -172,7 +176,7 @@ export const NewEmptyBusinessModal: FC<ModalProps> = ({
             onClick={() => {
               onClose();
               if (changedBusiness) {
-                submitChanges(changedBusiness);
+                submitChanges(changedBusiness, resetChangedBusiness);
               }
             }}
           >

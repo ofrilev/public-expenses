@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   Progress,
   StyledInput,
@@ -38,9 +38,6 @@ const RenderSubcategoriesItems: FC<IRenderSubcategoriesItems> = ({
   const [isValueChanged, setIsValueChanged] = useState(false);
   const handleBlur = (e: any) => {
     const value = e.target.value ?? "";
-    // if (inputRef.current && inputRef.current.value) {
-    //   inputRef.current.value = value;
-    // }
     if (value === data.goal_amount.toString()) {
       setIsValueChanged(false);
     } else {
@@ -72,14 +69,17 @@ const RenderSubcategoriesItems: FC<IRenderSubcategoriesItems> = ({
               }}
               isValueChange={isValueChanged}
               placeholder={data.goal_amount.toString()}
-              ref={inputRef} // Dynamically assigned ref here
+              ref={inputRef}
               isFocused={isFocusedIndex}
             />
           )}
           <StyledStats>{`${data.currentAmount}/${data.goal_amount}`}</StyledStats>
         </SubcategoriesItemUpperSection>
         <ProgressBarContainer>
-          <Progress value={data.currentAmount} color={progressColors[index]} />
+          <Progress
+            value={data.currentAmount && (data.currentAmount / data.goal_amount) * 100}
+            color={progressColors[index]}
+          />
         </ProgressBarContainer>
       </SubcategoriesItemWrapper>
     </SubcategoriesFrame>
@@ -101,7 +101,7 @@ export const SubcategoriesProgressRegular: FC<Props> = ({
 
   let refsById = useMemo(() => {
     const refs: Record<number, React.RefObject<HTMLInputElement>> = {};
-    subCategoriesBreakDown.forEach((item, index) => {
+    subCategoriesBreakDown.forEach((_item, index) => {
       refs[index] = React.createRef<HTMLInputElement>();
     });
     return refs;
@@ -110,22 +110,14 @@ export const SubcategoriesProgressRegular: FC<Props> = ({
   useEffect(() => {
     subCategoriesBreakDown.forEach((item, index) => {
       if (refsById[index].current) {
+        //@ts-ignore
         refsById[index].current.value = item.goal_amount.toString();
       }
     });
   }, [subCategoriesBreakDown, refsById]);
 
-  // const changeCurrentState = (i: number, goalAmount: number) => {
-  //   console.log("changeCurrentState called");
-  //   if (subCategoriesBreakDown[i].goal_amount !== goalAmount) {
-  //     subCategoriesBreakDown[i].goal_amount = goalAmount;
-  //     didFirstStateChange(subCategoriesBreakDown);
-  //   }
-  // };
-
   const getItems = () => {
     let arr: React.JSX.Element[] = [];
-    // inputRefs[i] = useRef<HTMLInputElement>(null);
     subCategoriesBreakDown?.map((data, i) => {
       const isFocusedIndex = i === focusedIndex;
       arr.push(
@@ -150,8 +142,8 @@ export const SubcategoriesProgressRegular: FC<Props> = ({
   };
 
   const changeIndexFocused = (index: number) => {
-    console.log("changeIndexFocused called");
     if (focusedIndex >= 0 && refsById[focusedIndex].current) {
+      //@ts-ignore
       const val = Number(refsById[focusedIndex].current.value);
       if (val >= 0) {
         handleItemChange(focusedIndex, val);

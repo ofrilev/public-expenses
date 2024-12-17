@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { CategoriesObjArr } from "../../models/models";
+import { CategoriesObj } from "../../models/models";
 
 export type ItemsHierarchy = {
   [id: number]: {
@@ -8,7 +8,7 @@ export type ItemsHierarchy = {
   };
 };
 interface CategoriesContextType {
-  categoriesContext: CategoriesObjArr;
+  categoriesContext: CategoriesObj[];
   setCategoriesContext: (categories: any) => void;
   categoriesHierarchy: ItemsHierarchy;
   setCategoriesHierarchy: (categories: any) => void;
@@ -33,7 +33,7 @@ interface Props {
 export const CategoriesContextProvider: React.FC<Props> = ({ children }) => {
   // Define your context value and any necessary state or functions
   const [categoriesContext, setCategoriesContext] = useState<
-    CategoriesObjArr | undefined | {}
+    CategoriesObj[] | undefined | {}
   >({});
   const [categoriesHierarchy, setCategoriesHierarchy] = useState<
     ItemsHierarchy | undefined | {}

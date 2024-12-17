@@ -1,6 +1,4 @@
 import { useState, useRef, FC, useEffect } from "react";
-import { useSelector } from "react-redux";
-
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,8 +11,6 @@ import {
 } from "chart.js";
 import { StyledTooltip } from "./StyledComponents";
 import { toThousandComma, toThousandK } from "../../utils/formatter/thousand";
-import { useMonthExpensesContext } from "../../../global/globalStates/MonthExpensesContext";
-import { RootState } from "../../../global/globalStates/store/store";
 import { MonthDataBreakDown } from "../../../models/expensesCategoryWidget/pieChart";
 
 // Register the components needed for the bar chart
@@ -30,6 +26,7 @@ type tooltipObject = {
   x: number;
   y: number;
   data: string;
+  visible: boolean;
 };
 interface Props {
   monthlyExpenses: MonthDataBreakDown[];
@@ -46,6 +43,7 @@ export const BarChart: FC<Props> = ({
   const chartRef = useRef<any>(null);
   //change default to the last data number;
   const [tooltipPosition, setTooltipPosition] = useState<tooltipObject>({
+    visible: false,
     x: 1,
     y: 1,
     data: "",
@@ -145,6 +143,7 @@ export const BarChart: FC<Props> = ({
             x: position.x + 20,
             y: position.y - 30,
             data: toThousandComma(e.chart.data.datasets[0].data[index]),
+            visible: true,
           });
         }
       },
@@ -157,23 +156,23 @@ export const BarChart: FC<Props> = ({
       },
     };
   useEffect(() => {
-    const chart = chartRef.current;
-    if (chart) {
-      const barElement = chart.getDatasetMeta(0).data[chosenMonth];
-      const { x, y, width, height } = barElement.getProps(
-        ["x", "y", "width", "height"],
-        true
-      );
-      const positions = [{ x, y, width, height }];
-      console.log(`First position y is ${positions[0].y}`);
-      console.log(`First chart bottom is ${chart.chartArea.bottom}`);
-      console.log(`First height y is ${positions[0].height}`);
-      setTooltipPosition({
-        x: positions[0].x + 20,
-        // y: positions[0].y - 30,
-        y: positions[0].y - chart.chartArea.bottom + 100,
-        data: toThousandComma(chart.data.datasets[0].data[chosenMonth]),
-      });
+    if (chartRef.current) {
+      const timeoutId = setTimeout(() => {
+        const barElements = chartRef.current.getDatasetMeta(0).data;
+        const chosenElement = barElements[chosenMonth];
+
+        if (chosenElement) {
+          const { x, y } = chosenElement.getProps(["x", "y"], true);
+          setTooltipPosition({
+            visible: true,
+            x: x + 22,
+            y: y - 40,
+            data: toThousandComma(data.datasets[0].data[chosenMonth]),
+          });
+        }
+      }, 800);
+
+      return () => clearTimeout(timeoutId);
     }
   }, []);
   //@ts-ignore
@@ -181,8 +180,8 @@ export const BarChart: FC<Props> = ({
   return (
     <>
       {bar}
-
       <StyledTooltip
+        visible={tooltipPosition.visible}
         id="StyledTooltip"
         x={tooltipPosition.x}
         y={tooltipPosition.y}

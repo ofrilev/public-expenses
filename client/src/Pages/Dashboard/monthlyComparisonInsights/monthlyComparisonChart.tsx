@@ -37,7 +37,7 @@ export const MonthlyComparisonBarChart: FC<Props> = ({
 }: Props) => {
   const chartRef = useRef<any>(null);
   const colors = color.ProgressColors_1;
-  const [monthsComparison, setMonthsComparison] = useState<monthsComparison[]>(
+  const [monthsComparison] = useState<monthsComparison[]>(
     getComparison(monthlyExpenses, 2)
   );
   const { labels, dataSets } = getLabelsAndDataSets(monthsComparison);
@@ -128,7 +128,7 @@ export const MonthlyComparisonBarChart: FC<Props> = ({
         },
       },
     },
-    onHover: (event: any, elements: any) => {
+    onHover: (_event: any, elements: any) => {
       setActiveIndex(elements[0]?.index);
     },
     responsive: true,
