@@ -4,8 +4,6 @@ export interface Todo {
   isDone: boolean;
 }
 
-//null expenses:
-
 interface ExpenseDetail {
   date: string;
   amount: number;

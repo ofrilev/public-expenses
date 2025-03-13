@@ -32,6 +32,6 @@ func main() {
 	corsM := corsMiddleware(r)
 	gormdbmodule.Init()
 	server(r)
-	fmt.Println("Server is running on port 8082...")
-	log.Fatal(http.ListenAndServe(":8082", corsM))
+	fmt.Println("Server is running on port 8083...")
+	log.Fatal(http.ListenAndServe(":8083", corsM))
 }

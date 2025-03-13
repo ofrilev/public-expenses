@@ -1,5 +1,6 @@
 export const config = {
   server: {
-    url: "http://localhost:8080/v1/api/",
+    url: import.meta.env.VITE_server_domain,
   },
+  auth: {url: import.meta.env.VITE_auth_domain},
 };

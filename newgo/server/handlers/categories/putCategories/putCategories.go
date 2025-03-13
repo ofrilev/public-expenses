@@ -2,15 +2,16 @@ package putcategories
 
 import (
 	"encoding/json"
+	"net/http"
+	"server/dbModels"
+	"server/gormDbModule"
+	checkchange "server/handlers/categories/putCategories/checkChange"
+	"server/handlers/categories/utils/bodyParamsHandle"
+	userscope "server/handlers/utils/userScope"
+	"strconv"
+
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
-	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	checkchange "newgo/server/handlers/categories/putCategories/checkChange"
-	"newgo/server/handlers/categories/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
-	"strconv"
 )
 
 func PutCategories(w http.ResponseWriter, r *http.Request) {

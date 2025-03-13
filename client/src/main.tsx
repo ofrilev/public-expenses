@@ -4,7 +4,7 @@ import { CategoriesContextProvider } from "./global/globalStates/CategoriesConte
 import { LoadingProvider } from "./components/loadingContext/LoadingContext";
 import { App } from "./App";
 import { Provider } from "react-redux";
-import store from "./global/globalStates/store/store";
+import store from "./global/globalStates/redux/store/store";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);

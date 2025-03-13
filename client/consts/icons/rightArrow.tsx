@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface RightArrowProps extends React.SVGProps<SVGSVGElement> {
   color?: string;
+  direction?: string;
   width?: string;
   height?: string;
   hoverColor?: string;

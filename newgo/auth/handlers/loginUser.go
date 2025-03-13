@@ -1,13 +1,13 @@
 package handlers
 
 import (
+	"auth/api"
+	"auth/dbModels"
+	"auth/token"
+	"auth/utils"
 	"encoding/json"
 	"log"
 	"net/http"
-	"newgo/auth/token"
-	"newgo/auth/utils"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
 )
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
@@ -18,8 +18,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	res := gormdbmodule.DB.First(&su, "email=?", u.Email)
-	res.Scan(&su)
+	su = api.GetUserByUserName(u.Email)
 	if su.Userid > 0 {
 		if utils.CheckPasswordHash(u.Password, su.Password) {
 			log.Printf("user:%v. logged in succesfully", u.Email)

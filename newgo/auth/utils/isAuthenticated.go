@@ -2,7 +2,7 @@ package utils
 
 import (
 	"net/http"
-	auth "newgo/auth/token"
+	auth "auth/token"
 	"time"
 )
 

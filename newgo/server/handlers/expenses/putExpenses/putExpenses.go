@@ -3,13 +3,12 @@ package putexpenses
 import (
 	"encoding/json"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/expenses/utils"
-	"newgo/server/handlers/expenses/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	"server/gormDbModule"
+	"server/handlers/expenses/utils"
+	"server/handlers/expenses/utils/bodyParamsHandle"
+	"server/handlers/utils/userScope"
 	"strconv"
-
 	"github.com/gorilla/mux"
 )
 

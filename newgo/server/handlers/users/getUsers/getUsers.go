@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/utils/pagination"
+	"server/dbModels"
+	gormdbmodule "server/gormDbModule"
+	"server/handlers/utils/pagination"
 
 	rqp "github.com/timsolov/rest-query-parser"
 )
@@ -58,10 +58,11 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	gormdbmodule.DB.Raw(query.SQL(dbModels.TableNames.UsersTable), query.Args()...).Scan(&users)
 	for _, user := range users {
 		resObj["Users"] = append(resObj["Users"].([]map[string]interface{}), map[string]interface{}{
-			"id":       user.Userid,
-			"name":     user.Name,
-			"email":    user.Email,
-			"role_ids": user.UserRoles,
+			"Userid":   user.Userid,
+			"Password": user.Password,
+			"Name":     user.Name,
+			"Email":    user.Email,
+			// "Role_ids": user.UserRoles,
 		})
 	}
 	w.Header().Set("Content-Type", "application/json")

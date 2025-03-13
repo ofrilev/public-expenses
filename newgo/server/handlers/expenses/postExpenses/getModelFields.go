@@ -1,8 +1,8 @@
 package postexpenses
 
 import (
-	"newgo/dbModels"
-	"newgo/server/date"
+	"server/dbModels"
+	"server/date"
 )
 
 func GetFieldsToUpdate(mapFields map[string]interface{}) dbModels.Expense {

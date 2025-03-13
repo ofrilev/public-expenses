@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/expenses/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	"server/gormDbModule"
+	"server/handlers/expenses/utils/bodyParamsHandle"
+	"server/handlers/utils/userScope"
 
 	"gorm.io/gorm"
 )

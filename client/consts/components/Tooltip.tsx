@@ -4,13 +4,12 @@ import { color } from "../colors";
 import React from "react";
 
 interface TooltipProps {
-  icon: ReactNode; // You can pass in SVG or any JSX component
-  textContent?: string; // Text content for the tooltip
+  icon: ReactNode;
+  textContent?: string;
   jsxContent?: JSX.Element;
-  // ContentComponent?: React.ComponentType<{ children: ReactNode }>; // The styled-component or any React component
-  ContentComponent?: any;
+  ContentComponent?: React.ComponentType<any>;
   contentId?: string;
-  onClick?: any;
+  onClick?: () => void;
 }
 
 const TooltipWrapper = styled.div<{ contentId?: string }>`

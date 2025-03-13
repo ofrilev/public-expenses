@@ -9,9 +9,9 @@ export type ItemsHierarchy = {
 };
 interface CategoriesContextType {
   categoriesContext: CategoriesObj[];
-  setCategoriesContext: (categories: any) => void;
+  setCategoriesContext: (categories: CategoriesObj[]) => void;
   categoriesHierarchy: ItemsHierarchy;
-  setCategoriesHierarchy: (categories: any) => void;
+  setCategoriesHierarchy: (categories: ItemsHierarchy[]) => void;
 }
 
 // Create a new context

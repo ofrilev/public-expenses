@@ -1,18 +1,12 @@
+
+import { FC, useState } from "react";
+import { MonthlyData } from "../../models/expensesCategoryWidget/pieChart";
 import { Widget } from "../../components/widget/Widget";
 import { CategoriesBreakDown } from "./categoriesBreakDown/categoriesBreakDownChart";
 import { BarChart } from "./monthlyChart/monthlyChart";
 import { MonthlyComparisonBarChart } from "./monthlyComparisonInsights/monthlyComparisonChart";
-import {
-  FirstGridItem,
-  ForthGridItem,
-  GridWrapper,
-  SecondGridItem,
-  StyledGrid,
-  ThirdGridItem,
-} from "./StyledComponents";
+import { GridWrapper, StyledGrid, FirstGridItem, SecondGridItem, ThirdGridItem, ForthGridItem } from "./StyledComponents";
 import { SubCategoriesBreakDown } from "./subCategoriesBreakDown/subCategoriesBreakDownChart";
-import { FC, useState } from "react";
-import { MonthlyData } from "../../models/expensesCategoryWidget/pieChart";
 
 export type MonthDataBreakDown = [
   string,

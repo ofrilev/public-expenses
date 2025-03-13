@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"newgo/server/handlers/expenses/utils/bodyParamsHandle"
+	"server/handlers/expenses/utils/bodyParamsHandle"
 	"reflect"
 )
 

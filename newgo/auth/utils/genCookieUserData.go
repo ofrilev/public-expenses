@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"newgo/dbModels"
+	"auth/dbModels"
 	"time"
 )
 

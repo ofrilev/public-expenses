@@ -7,10 +7,11 @@ import {
   Legend,
   Title,
   ChartOptions,
+  ChartData,
 } from "chart.js";
 import { color } from "../../../../consts/colors";
-import { StyledDoughnut } from "../StyledComponents";
 import { MonthDataBreakDown } from "../Dashboard";
+import { StyledDoughnut } from "../StyledComponents";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -36,8 +37,7 @@ export const CategoriesBreakDown: FC<Props> = ({
       dataSet.push(breakDown.totalAmount);
     }
   );
-
-  const data = {
+  const chartData: ChartData<"doughnut"> = {
     labels: labels,
     datasets: [
       {
@@ -51,14 +51,14 @@ export const CategoriesBreakDown: FC<Props> = ({
         borderWidth: (context: any) => {
           return context.dataIndex === chosenCategory ? 4 : 0;
         },
-        offset: (context: any) => {
+        offset: ((context: any) => {
           return context.dataIndex === chosenCategory ? 10 : 0;
-        },
+        }) as unknown as number,
+
         hoverOffset: 30,
       },
     ],
   };
-
   // Optional: Customize the chart options
   const options: ChartOptions<"doughnut"> = {
     radius: 85,
@@ -68,7 +68,6 @@ export const CategoriesBreakDown: FC<Props> = ({
       animateScale: false,
     },
     plugins: {
-      //   shadowPlugin: {},
       legend: {
         display: false,
         position: "bottom",
@@ -85,7 +84,6 @@ export const CategoriesBreakDown: FC<Props> = ({
       tooltip: {
         position: "average",
         backgroundColor: (_context: any) => {
-          // return `${colors[context.tooltipItems[0]?.dataIndex]}`;
           return "rgba(0, 0, 0, 0.8)";
         },
         yAlign: "bottom",
@@ -113,67 +111,6 @@ export const CategoriesBreakDown: FC<Props> = ({
     },
     cutout: "55%",
   };
-  // const shadowPlugin = {
-  //   id: "shadowPlugin",
-  //   afterDraw: (chart: {
-  //     ctx: any;
-  //     data: { datasets: any[] };
-  //     getDatasetMeta: (arg0: any) => any;
-  //   }) => {
-  //     const ctx = chart.ctx;
-  //     chart.data.datasets.forEach((dataset, i) => {
-  //       if (i == chosenCategory) {
-  //         const meta = chart.getDatasetMeta(i);
-  //         meta.data.forEach(
-  //           (
-  //             element: {
-  //               x: any;
-  //               y: any;
-  //               outerRadius: any;
-  //               startAngle: any;
-  //               endAngle: any;
-  //               innerRadius: any;
-  //             },
-  //             index: string | number
-  //           ) => {
-  //             ctx.save();
-  //             ctx.shadowColor = "rgba(0, 0, 0, 0.5)"; // Set shadow color
-  //             ctx.shadowBlur = 10; // Set shadow blur
-  //             ctx.shadowOffsetX = 5; // Horizontal shadow offset
-  //             ctx.shadowOffsetY = 5; // Vertical shadow offset
-
-  //             // Draw the slice with shadow
-  //             ctx.beginPath();
-  //             ctx.arc(
-  //               element.x,
-  //               element.y,
-  //               element.outerRadius,
-  //               element.startAngle,
-  //               element.endAngle
-  //             );
-  //             ctx.arc(
-  //               element.x,
-  //               element.y,
-  //               element.innerRadius,
-  //               element.endAngle,
-  //               element.startAngle,
-  //               true
-  //             );
-  //             ctx.closePath();
-  //             ctx.fillStyle = dataset.backgroundColor[index];
-  //             ctx.fill();
-
-  //             ctx.restore();
-  //           }
-  //         );
-  //       }
-  //     });
-  //   },
-  // };
-
-  // Register the plugin with Chart.js
-  //   ChartJS.register(shadowPlugin);
-
   const {
     ChartContainer,
     LegendContainer,
@@ -187,15 +124,17 @@ export const CategoriesBreakDown: FC<Props> = ({
       <LegendContainer id="LegendContainer">
         {labels.map((label, index) => (
           <LegendItem key={index} isSelected={index == chosenCategory}>
-            <LegendColorBox color={data.datasets[0].backgroundColor[index]} />
+            {Array.isArray(chartData.datasets[0].backgroundColor) && (
+              <LegendColorBox
+                color={chartData.datasets[0].backgroundColor[index]}
+              />
+            )}
             {label}
           </LegendItem>
         ))}
       </LegendContainer>
       <DoughnutContainer>
-        <Doughnut
-        //@ts-ignore
-        data={data} options={options} />
+        <Doughnut data={chartData} options={options} />
       </DoughnutContainer>
     </ChartContainer>
   );

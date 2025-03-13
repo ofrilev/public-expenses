@@ -3,7 +3,7 @@ package handlers
 import (
 
 	"net/http"
-	"newgo/auth/utils"
+	"auth/utils"
 )
 
 func IsUserAuthenticate(w http.ResponseWriter, r *http.Request) {

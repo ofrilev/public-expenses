@@ -55,7 +55,7 @@ export const ExpensesInfo = ({ data }: Props) => (
       <StyledColumn>
         <div> Amount</div>
         <StyledLowerSection left={true}>
-          {data.map((item: any) => (
+          {data.map((item) => (
             <div>
               <div>{item.amount}</div>
             </div>
@@ -65,7 +65,7 @@ export const ExpensesInfo = ({ data }: Props) => (
       <StyledColumn>
         <div> Date </div>
         <StyledLowerSection left={false}>
-          {data.map((item: any) => (
+          {data.map((item) => (
             <div>
               <div>{item.date}</div>
             </div>

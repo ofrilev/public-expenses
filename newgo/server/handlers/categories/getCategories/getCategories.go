@@ -5,11 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/utils/pagination"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	gormdbmodule "server/gormDbModule"
+	"server/handlers/utils/pagination"
+	"server/handlers/utils/userScope"
 
 	rqp "github.com/timsolov/rest-query-parser"
 )

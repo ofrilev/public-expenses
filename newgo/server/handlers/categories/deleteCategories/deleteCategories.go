@@ -2,12 +2,11 @@ package deletecategories
 
 import (
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	checkdelete "newgo/server/handlers/categories/deleteCategories/checkDelete"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	"server/gormDbModule"
+	"server/handlers/categories/deleteCategories/checkDelete"
+	"server/handlers/utils/userScope"
 	"strconv"
-
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )

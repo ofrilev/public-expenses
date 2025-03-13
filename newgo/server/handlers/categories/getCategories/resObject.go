@@ -1,6 +1,6 @@
 package getcategories
 
-import "newgo/server/handlers/models/pagination"
+import "server/handlers/models/pagination"
 
 type Categories struct {
 	Id       int    `json:"id"`

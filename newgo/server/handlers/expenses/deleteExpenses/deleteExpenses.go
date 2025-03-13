@@ -1,12 +1,11 @@
 package deleteexpenses
 
 import (
+	"server/dbModels"
+	"server/gormDbModule"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	userscope "newgo/server/handlers/utils/userScope"
+	userscope "server/handlers/utils/userScope"
 	"strconv"
-
 	"github.com/gorilla/mux"
 )
 

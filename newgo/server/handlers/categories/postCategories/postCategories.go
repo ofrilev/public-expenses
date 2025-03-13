@@ -2,13 +2,13 @@ package postcategories
 
 import (
 	"encoding/json"
-	"gorm.io/gorm"
 	"log"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/categories/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	"gorm.io/gorm"
+	"server/dbModels"
+	gormdbmodule "server/gormDbModule"
+	"server/handlers/categories/utils/bodyParamsHandle"
+	userscope "server/handlers/utils/userScope"
 )
 
 func PostCategories(w http.ResponseWriter, r *http.Request) {

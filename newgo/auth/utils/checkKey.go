@@ -3,9 +3,8 @@ package utils
 import (
 	"encoding/hex"
 	"log"
-	"newgo/dbModels"
+	"auth/dbModels"
 	"time"
-
 	"aidanwoods.dev/go-paseto"
 )
 

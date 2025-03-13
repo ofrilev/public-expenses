@@ -2,9 +2,9 @@ package deletemonthlyprogress
 
 import (
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	"server/gormDbModule"
+	"server/handlers/utils/userScope"
 	"strconv"
 
 	"github.com/gorilla/mux"

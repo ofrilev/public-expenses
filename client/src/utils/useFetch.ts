@@ -14,8 +14,8 @@ interface Pagination {
 
 
 const fetchOnPort = ({url, method, data, accessToken}:{url: string, method?: string, data?: any, accessToken?:string }) => {
-  console.log(document.cookie)
   let accessTokenObj = accessToken ? {"Authorization": `Bearer ${accessToken}`} : undefined
+
   return fetch(`${config.server.url}${url}`, {
     method: method ?? "GET",
     credentials: "include",
@@ -29,9 +29,9 @@ export class FetchRequest<T> {
     pagination: Pagination,
     data: T,
   }
-  private accessToken : string
+  private accessToken : string | undefined
   constructor(private url:string, defaultData: T) {
-    this.accessToken = localStorage.getItem("accessToken") ?? ""
+    this.accessToken = undefined;
     this.response = {
       status: 1,
       pagination: {
@@ -43,6 +43,14 @@ export class FetchRequest<T> {
       data: defaultData
     }       
   }
+  // async fetchAccessToken(): Promise<void>{
+  //   try{
+  //     const res = await fetchOnPort({url: config.auth.url+"accessToken"});
+  //     if(res.ok){
+  //       const accessToken = await res.headers
+  //     }
+  //   }
+  // }
    // Fetch function that performs the request
    async fetchData(): Promise<void> {
     try {
@@ -75,7 +83,6 @@ export class FetchRequest<T> {
         localStorage.setItem(key, JSON.stringify(dataToCache));
       }
     }
-
   }
 }
 export const postReq = async <T>(

@@ -4,16 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"server/dbModels"
+	"server/gormDbModule"
 	"net/http"
-	"newgo/dbModels"
-	"newgo/server/date"
-	"newgo/server/handlers/utils/pagination"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/date"
+	"server/handlers/utils/pagination"
+	userscope "server/handlers/utils/userScope"
+	"strings"
 
 	rqp "github.com/timsolov/rest-query-parser"
-
-	gormdbmodule "newgo/gormDbModule"
-	"strings"
 )
 
 func GetExpenses(w http.ResponseWriter, r *http.Request) {

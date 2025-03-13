@@ -1,8 +1,9 @@
-client/.env
-newgo/.env
-go-lambda/.env
-lambda-user-datascraper/.env
-login/.env
-registration/.env
-*/**/node_modules
-*/**/bun.lockb
+*/**__debug*
+*/**dist/*
+newgo/gateway/static_files/*
+.env*
+*/.env
+*/** */.env
+*/node_modules
+*/bun.lockb
+.vscode

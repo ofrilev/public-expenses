@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"newgo/auth"
@@ -13,28 +12,26 @@ import (
 )
 
 var appFilePath string
+var authFilePath string
 var loginFilePath string
 var registrationFilePath string
-var loginFSH http.Handler
 var appFSH http.Handler
-var registrationFSH http.Handler
+var authFSH http.Handler
 
 func first() {
 	gormdbmodule.Init()
 	appFilePath = os.Getenv("app_file_path")
+	authFilePath = os.Getenv("auth_file_path")
 	loginFilePath = os.Getenv("login_file_path")
 	registrationFilePath = os.Getenv("registration_file_path")
-	loginFSH = http.FileServer(http.Dir(loginFilePath))
-	registrationFSH = http.FileServer(http.Dir(registrationFilePath))
+	authFSH = http.FileServer(http.Dir(authFilePath))
 	appFSH = http.FileServer(http.Dir(appFilePath))
-	d := http.Dir(appFilePath)
-	fmt.Println(d)
 }
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*") // Allow any origin
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
 			return
@@ -46,22 +43,13 @@ func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !auth.IsAuthenticated(w, r) {
 			// User is not authenticated, redirect to login
-			http.Redirect(w, r, "/login/", http.StatusSeeOther)
+			http.Redirect(w, r, "/auth/", http.StatusSeeOther)
 			return
 		}
 		// User is authenticated, serve the next handler
 		next.ServeHTTP(w, r)
 	})
 }
-
-// Other functions like first(), corsMiddleware(), authMiddleware()...
-
-func getLoginHandler(w http.ResponseWriter, r *http.Request) {
-	// Serve the login page for GET requests
-	// Assuming login page is a static file, adjust the file name as necessary
-	http.ServeFile(w, r, loginFilePath+"index.html")
-}
-
 func main() {
 	gormdbmodule.Init()
 	first()
@@ -72,23 +60,25 @@ func main() {
 
 	// Create file servers for each path
 	appFS := http.FileServer(http.Dir(appFilePath))
-	loginFS := http.FileServer(http.Dir(loginFilePath))
-	registrationFS := http.FileServer(http.Dir(registrationFilePath))
-
-	// Route requests for GET and POST on /login
-	// r.HandleFunc("/login", getLoginHandler).Methods("GET")
-	// r.HandleFunc("/login", loginFS.ServeHTTP).Methods("GET")
-	r.HandleFunc("/login", handlers.LoginUser).Methods("POST")
-	r.HandleFunc("/registration", handlers.RegisterUser).Methods("POST")
+	authFS := http.FileServer(http.Dir(authFilePath))
+	r.HandleFunc("/auth/login", handlers.LoginUser).Methods("POST")
+	r.HandleFunc("/auth/registration", handlers.RegisterUser).Methods("POST")
 
 	// Serve static files for login, registration, and app with respective middleware
 	r.PathPrefix("/app/").Handler(authMiddleware(http.StripPrefix("/app/", appFS)))
-	r.PathPrefix("/login/").Handler(http.StripPrefix("/login/", loginFS))
-	r.PathPrefix("/registration/").Handler(http.StripPrefix("/registration/", registrationFS))
+	http.HandleFunc("/app/", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := os.Stat(appFilePath + r.URL.Path); os.IsNotExist(err) {
+			// Serve index.html for routes that don't match a static file
+			http.ServeFile(w, r, appFilePath)
+		} else {
+			http.FileServer(http.Dir(appFilePath)).ServeHTTP(w, r)
+		}
+	})
+	r.PathPrefix("/auth/").Handler(http.StripPrefix("/auth/", authFS))
 
 	// Start the server with the Gorilla Mux router
-	log.Println("Server starting on :8081...")
-	err := http.ListenAndServe(":8081", r)
+	log.Println("Server starting on :8080...")
+	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Fatal(err)
 	}

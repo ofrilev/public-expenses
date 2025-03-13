@@ -9,6 +9,7 @@ export class Colors {
   };
   carbon = {
     0: "#FFFFFF",
+    15:"#FCFCFD",
     25: "#F7F7F8",
     50: "#E6E9EC",
     100: "#CBD1D7",
@@ -17,6 +18,7 @@ export class Colors {
     300: "#6B7C8C",
     400: "#3A5166",
     500: "#092540",
+    700:"#EAECF0",
   };
 
   midnight = {
@@ -36,6 +38,7 @@ export class Colors {
     500: "#3DB7BB",
     600: "#2F969D",
     700: "#0096AA",
+    800:"#E7E7E7",
   };
   yellow = {
     100: "#FFF5D6",
@@ -88,6 +91,7 @@ export class Colors {
     "#F68D2B",
     "#FFD200",
   ];
+
 
   /**
    * Shuffles the elements of the given array in place

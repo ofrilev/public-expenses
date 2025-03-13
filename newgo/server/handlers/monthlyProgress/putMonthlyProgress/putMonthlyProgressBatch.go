@@ -3,11 +3,11 @@ package putmonthlyprogress
 import (
 	"encoding/json"
 	"fmt"
+	"server/dbModels"
+	"server/gormDbModule"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	bodyparamhandle "newgo/server/handlers/monthlyProgress/bodyParamHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	bodyparamhandle "server/handlers/monthlyProgress/bodyParamHandle"
+	userscope "server/handlers/utils/userScope"
 
 	"gorm.io/gorm"
 )

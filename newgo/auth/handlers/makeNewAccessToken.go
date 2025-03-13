@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"newgo/auth/token"
+	"auth/token"
 )
 
 func MakeNewAccessToken(w http.ResponseWriter, r *http.Request) {

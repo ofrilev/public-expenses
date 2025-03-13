@@ -1,8 +1,8 @@
 package postmonthlyprogress
 
 import (
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
+	"server/dbModels"
+	"server/gormDbModule"
 )
 
 func isProgressExist(mp dbModels.MonthlyProgress) bool {

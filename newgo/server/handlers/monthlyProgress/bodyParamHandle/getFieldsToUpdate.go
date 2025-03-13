@@ -1,7 +1,7 @@
 package bodyparamhandle
 
 import (
-	"newgo/dbModels"
+	"server/dbModels"
 	"time"
 )
 

@@ -2,12 +2,12 @@ package postmonthlyprogress
 
 import (
 	"encoding/json"
+	"server/dbModels"
+	"server/gormDbModule"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	bodyparamhandle "newgo/server/handlers/monthlyProgress/bodyParamHandle"
-	utils "newgo/server/handlers/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	bodyparamhandle "server/handlers/monthlyProgress/bodyParamHandle"
+	utils "server/handlers/utils/bodyParamsHandle"
+	userscope "server/handlers/utils/userScope"
 )
 
 func PostMonthlyProgress(w http.ResponseWriter, r *http.Request) {

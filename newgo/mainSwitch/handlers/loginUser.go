@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"newgo/auth"
+
+	auth "newgo/auth/token"
 	"newgo/dbModels"
 	gormdbmodule "newgo/gormDbModule"
 )
@@ -22,9 +23,10 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	if su.Userid > 0 {
 		if CheckPasswordHash(u.Password, su.Password) {
 			log.Printf("user:%v. logged in succesfully", u.Email)
-			auth.GenCookieToken(su, w)
-			auth.GenCookieUserData(su, w)
-			http.Redirect(w, r, "/app/", http.StatusSeeOther)
+			tokens, _ := auth.GenTokenPair(su)
+			auth.SetCookies(w, tokens)
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("User logged in succesfully"))
 			return
 		}
 		w.WriteHeader(http.StatusUnauthorized)

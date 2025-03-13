@@ -1,7 +1,7 @@
 package getexpenses
 
 import (
-	"newgo/server/handlers/models/pagination"
+	"server/handlers/models/pagination"
 	"time"
 )
 

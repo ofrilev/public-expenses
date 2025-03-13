@@ -3,12 +3,12 @@ package putmonthlyprogress
 import (
 	"encoding/json"
 	"fmt"
+	"server/dbModels"
+	"server/gormDbModule"
 	"net/http"
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	bodyparamhandle "newgo/server/handlers/monthlyProgress/bodyParamHandle"
-	"newgo/server/handlers/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	bodyparamhandle "server/handlers/monthlyProgress/bodyParamHandle"
+	"server/handlers/utils/bodyParamsHandle"
+	userscope "server/handlers/utils/userScope"
 	"strconv"
 
 	"github.com/gorilla/mux"

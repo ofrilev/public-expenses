@@ -2,10 +2,10 @@ package monthlyprogress
 
 import (
 	"net/http"
-	deletemonthlyprogress "newgo/server/handlers/monthlyProgress/deleteMonthlyProgress"
-	getmonthlyprogress "newgo/server/handlers/monthlyProgress/getMonthlyProgress"
-	postmonthlyprogress "newgo/server/handlers/monthlyProgress/postMonthlyProgress"
-	putmonthlyprogress "newgo/server/handlers/monthlyProgress/putMonthlyProgress"
+	deletemonthlyprogress "server/handlers/monthlyProgress/deleteMonthlyProgress"
+	getmonthlyprogress "server/handlers/monthlyProgress/getMonthlyProgress"
+	postmonthlyprogress "server/handlers/monthlyProgress/postMonthlyProgress"
+	putmonthlyprogress "server/handlers/monthlyProgress/putMonthlyProgress"
 )
 
 func MonthlyProgress(w http.ResponseWriter, r *http.Request) {

@@ -2,11 +2,11 @@ package expenses
 
 import (
 	"net/http"
-	deleteexpenses "newgo/server/handlers/expenses/deleteExpenses"
-	getexpenses "newgo/server/handlers/expenses/getExpenses"
-	postexpenses "newgo/server/handlers/expenses/postExpenses"
-	putexpenses "newgo/server/handlers/expenses/putExpenses"
-	putexpensesbybusinessname "newgo/server/handlers/expenses/putExpensesByBusinessName"
+	deleteexpenses "server/handlers/expenses/deleteExpenses"
+	getexpenses "server/handlers/expenses/getExpenses"
+	postexpenses "server/handlers/expenses/postExpenses"
+	putexpenses "server/handlers/expenses/putExpenses"
+	putexpensesbybusinessname "server/handlers/expenses/putExpensesByBusinessName"
 )
 
 func Expenses(w http.ResponseWriter, r *http.Request) {

@@ -2,10 +2,9 @@ package postcategories
 
 import (
 	"net/http"
-	"newgo/dbModels"
-	"newgo/server/handlers/categories/utils"
-	"newgo/server/handlers/categories/utils/bodyParamsHandle"
-
+	"server/dbModels"
+	"server/handlers/categories/utils"
+	"server/handlers/categories/utils/bodyParamsHandle"
 	"gorm.io/gorm"
 )
 

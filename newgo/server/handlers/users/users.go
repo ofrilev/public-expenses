@@ -2,7 +2,7 @@ package users
 
 import (
 	"net/http"
-	getusers "newgo/server/handlers/users/getUsers"
+	getusers "server/handlers/users/getUsers"
 )
 
 func Users(w http.ResponseWriter, r *http.Request) {

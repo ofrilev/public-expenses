@@ -1,7 +1,7 @@
 package getmonthlyprogress
 
 import (
-	"newgo/server/handlers/models/pagination"
+	"server/handlers/models/pagination"
 )
 
 type MonthlyProgress struct {

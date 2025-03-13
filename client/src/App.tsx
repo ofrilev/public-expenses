@@ -1,9 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect,useState } from "react";
 import { Platform } from "./platform/Platform";
+
 import { useCategoriesContext } from "./global/globalStates/CategoriesContext";
 import LoaderGif from "../consts/components/LoaderGif";
 import { fetchCategories } from "./utils/fetch/categories";
 import { getCategoriesHierarchy } from "./utils/fetch/format/getCategoriesHierarchy";
+
 
 export const App: FC = () => {
   const { setCategoriesContext, setCategoriesHierarchy } =

@@ -3,12 +3,12 @@ import { SideBar } from "../components/sideBar/SideBar";
 import {
   NoPage,
   DashboardPage,
-  ExpensesTable,
+  ExpensesTablePage,
   MonthlyProgressPage,
-} from "../Pages/Page";
+} from "../pages/Page";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FC, useState } from "react"; // Import Suspense
-import { NewEmptyBusinessModal } from "../components/NewEmptyBusinessModal/NewEmptyBusinessModal";
+import { NewEmptyBusinessModal } from "../components/newEmptyBusinessModal/NewEmptyBusinessModal";
 import { useSelector } from "react-redux";
 import { RootState } from "../global/globalStates/store/store";
 
@@ -52,7 +52,7 @@ const AppLayout: FC = () => {
     <Routes>
       <Route path="dashboard" element={<DashboardPage />} />
       <Route path="monthly_expense" element={<MonthlyProgressPage />} />
-      <Route path="expenses_table" element={<ExpensesTable />} />
+      <Route path="expenses_table" element={<ExpensesTablePage />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
   );

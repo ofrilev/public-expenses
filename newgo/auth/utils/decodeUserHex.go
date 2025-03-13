@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"log"
-	"newgo/dbModels"
+	"auth/dbModels"
 )
 
 func DecodeUserHex(s string) (dbModels.User, error) {

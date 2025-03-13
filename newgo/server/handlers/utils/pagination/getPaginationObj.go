@@ -2,7 +2,7 @@ package pagination
 
 import (
 	"fmt"
-	"newgo/server/handlers/models/pagination"
+	"server/handlers/models/pagination"
 
 	rqp "github.com/timsolov/rest-query-parser"
 	"gorm.io/gorm"

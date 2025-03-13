@@ -1,9 +1,9 @@
 package getmonthlyprogress
 
 import (
-	"newgo/dbModels"
-	gormdbmodule "newgo/gormDbModule"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/dbModels"
+	"server/gormDbModule"
+	userscope "server/handlers/utils/userScope"
 	"time"
 )
 

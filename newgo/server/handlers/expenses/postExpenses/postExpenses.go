@@ -2,11 +2,11 @@ package postexpenses
 
 import (
 	"encoding/json"
+	"server/gormDbModule"
 	"net/http"
-	gormdbmodule "newgo/gormDbModule"
-	"newgo/server/handlers/expenses/utils"
-	"newgo/server/handlers/expenses/utils/bodyParamsHandle"
-	userscope "newgo/server/handlers/utils/userScope"
+	"server/handlers/expenses/utils"
+	"server/handlers/expenses/utils/bodyParamsHandle"
+	userscope "server/handlers/utils/userScope"
 )
 
 func PostExpenses(w http.ResponseWriter, r *http.Request) {

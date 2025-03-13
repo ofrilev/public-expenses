@@ -2,7 +2,7 @@ package bodyparamhandle
 
 import (
 	"net/http"
-	bph "newgo/server/handlers/utils/bodyParamsHandle"
+	bph "server/handlers/utils/bodyParamsHandle"
 	"strings"
 )
 

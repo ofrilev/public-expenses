@@ -1,10 +1,9 @@
 package token
 
 import (
-	"newgo/dbModels"
+	"auth/dbModels"
 	"os"
 	"time"
-
 	"github.com/dgrijalva/jwt-go"
 )
 

@@ -2,9 +2,8 @@ package checkdelete
 
 import (
 	"net/http"
-	"newgo/dbModels"
-	"newgo/server/handlers/categories/utils"
-
+	"server/dbModels"
+	"server/handlers/categories/utils"
 	"gorm.io/gorm"
 )
 
